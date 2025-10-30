@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Will AI Take Over Your Job? (Prank)</title>
+  <style>
+    :root { --bg:#0b1020;--card:#121833;--ink:#eef2ff;--muted:#9aa3b2;--accent:#7c8cff;--accent-2:#2ee6a6;--danger:#ff5c7a; }
+    html,body{height:100%}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:radial-gradient(1200px 600px at 80% -10%,#1b2350 0%,transparent 60%),var(--bg);color:var(--ink);display:grid;place-items:center}
+    .card{width:min(720px,92vw);background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.35);backdrop-filter:blur(8px)}
+    h1{margin:0 0 8px;font-size:clamp(24px,3vw,32px)}p.tagline{margin:0 0 18px;color:var(--muted)}.row{display:flex;gap:12px;margin:12px 0 6px}input[type=text]{flex:1;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:#0f1530;color:var(--ink);font-size:16px;outline:none;transition:border 120ms ease}input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(124,140,255,0.18)}button{padding:14px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:12px;background:linear-gradient(180deg,#202b66,#1a2356);color:var(--ink);font-weight:600;cursor:pointer;transition:transform 80ms ease,filter 120ms ease,box-shadow 120ms ease}button:hover{filter:brightness(1.1);box-shadow:0 6px 18px rgba(124,140,255,0.25)}button:active{transform:translateY(1px) scale(0.99)}.meter{height:8px;background:#0e1330;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin:14px 0 10px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 2s ease}.console{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;background:#0a0f26;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;color:#d2d8ff;height:120px;overflow:auto;white-space:pre-line}.console .dim{color:#7d89b0}.result{margin-top:14px;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:#0b1230;font-size:18px;line-height:1.4}.result.positive{border-color:rgba(46,230,166,0.4)}.result.negative{border-color:rgba(255,92,122,0.4)}.footer{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}.hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Will AI take over your job?</h1>
+    <p class="tagline">Type any job title. We run a very serious analysis.</p>
+    <div class="row"><input id="job" type="text" placeholder="e.g., milkman, data analyst, wizard"/><button id="check">Run analysis</button></div>
+    <div class="meter"><div class="bar" id="bar"></div></div>
+    <div class="console" id="console"></div>
+    <div id="result" class="result hidden"></div>
+    <div class="footer">No AI model calls. Pure front-end tomfoolery.</div>
+  </div>
+  <script>
+    const input=document.getElementById('job');const button=document.getElementById('check');const consoleEl=document.getElementById('console');const bar=document.getElementById('bar');const result=document.getElementById('result');
+    const exceptionTokens=['unemployed','jobless','between jobs','none','no job','laid off','retired','elon musk','jeff bezos','satya nadella','tim cook','sundar pichai','mark zuckerberg','bill gates','warren buffett','larry page','sergey brin','ceo','founder','billionaire'];
+    const logs=['Scanning job databases…','Checking replacement potential…','Warming up sarcasm engine…','Parsing LinkedIn endorsements…','Cross-referencing dystopian novels…'];
+
+    function clearConsole(){consoleEl.textContent='';}
+    function logLine(t,dim=false){const line=document.createElement('div');if(dim)line.className='dim';line.textContent=t;consoleEl.appendChild(line);consoleEl.scrollTop=consoleEl.scrollHeight;}
+    function isException(t){return exceptionTokens.some(x=>(t||'').toLowerCase().includes(x));}
+
+    function funnyYes(job){
+      const j=job||'job';
+      const arr=[
+        `Yes. AI added ${j} to its grocery list of conquered tasks.`,
+        `Definitely. ${j}? It's now a side quest for chatbots.`,
+        `Affirmative. ${j}? Automating that was step 3 of 5 in world domination.`,
+        `Yes. ${j} has been containerized, dockerized, and vaporized.`,
+        `Absolutely. ${j}? The robots already made a meme about it.`,
+        `Indeed. ${j}? Now a button labeled 'Make it so'.`,
+        `Yes. ${j}? Replaced by 14 lines of poorly commented code.`,
+        `Confirmed. ${j} was optimized out of the workflow.`,
+        `Yes. ${j}? Now open source, maintained by interns and AI.`,
+        `Absolutely. ${j}? The AI's cat does it during naps.`,
+        `Yes. ${j}? Replaced by a self-learning coffee machine.`,
+        `Definitely. ${j}? The AI thought it was a warm-up exercise.`,
+        `Yes. ${j}? Renamed "Auto-${j.toLowerCase()}()".`,
+        `Affirmative. ${j}? The cloud is already invoicing for it.`,
+        `Indeed. ${j}? Fully automated with optional sass.`,
+        `Yes. ${j}? AI completed it before your coffee cooled.`,
+        `Absolutely. ${j}? Now running as a background process.`,
+        `Yes. ${j}? The neural net gave it a 10/10 difficulty: trivial.`,
+        `Confirmed. ${j}? Automated in the latest patch.`,
+        `Yes. ${j}? Exists only as a meme dataset entry.`,
+        `Affirmative. ${j}? The bots crowdsourced it and moved on.`,
+        `Yes. ${j}? Available as a downloadable module.`,
+        `Definitely. ${j}? It's now handled by "AI Intern v0.9."`,
+        `Yes. ${j}? Replaced mid-sentence. Didn't even flinch.`,
+        `Absolutely. ${j}? AI clocked it at 2ms latency.`,
+        `Yes. ${j}? The model submitted your resignation on your behalf.`,
+        `Confirmed. ${j}? Deprecated and archived.`,
+        `Indeed. ${j}? AI treats it as a training warmup.`,
+        `Yes. ${j}? Handled by a Roomba with ambition.`,
+        `Absolutely. ${j}? Now a scheduled cron job.`,
+        `Yes. ${j}? AI put it in maintenance mode permanently.`,
+        `Definitely. ${j}? That's a solved problem since Tuesday.`,
+        `Yes. ${j}? The AI trademarked it already.`,
+        `Absolutely. ${j}? It's now an emoji reaction.`,
+        `Confirmed. ${j}? Handled via API call 'replaceHuman()'.`,
+        `Yes. ${j}? The system logged it as "obsolete."`,
+        `Affirmative. ${j}? AI rolled it into "Miscellaneous Automation."`,
+        `Indeed. ${j}? Compressed into one sarcastic function.`,
+        `Yes. ${j}? The AI just texted your boss "handled."`,
+        `Absolutely. ${j}? Replaced by three lines of Python.`,
+        `Yes. ${j}? Automated faster than you typed it.`,
+        `Confirmed. ${j}? The AI added a badge for it.`,
+        `Indeed. ${j}? The robots consider it light cardio.`,
+        `Yes. ${j}? Auto-generated and auto-fired.`,
+        `Absolutely. ${j}? The system's been mocking it in logs.`,
+        `Yes. ${j}? Converted into 1 KB of smug code.`,
+        `Definitely. ${j}? Even AI interns do that now.`,
+        `Yes. ${j}? Handled by the cloud's "bored" cluster.`,
+        `Confirmed. ${j}? Patched out in version 3.2.`,
+        `Absolutely. ${j}? The AI yawns every time it does it.`,
+        `Yes. ${j}? Reduced to a single prompt.`,
+        `Indeed. ${j}? Marked as "Legacy human function."`,
+        `Affirmative. ${j}? The model runs it while meditating.`,
+        `Yes. ${j}? A chatbot took over during your lunch break.`,
+        `Absolutely. ${j}? There's a Slack bot for that now.`,
+        `Yes. ${j}? Even the AI's AI finds it easy.`,
+        `Confirmed. ${j}? AI refactored it out of existence.`,
+        `Definitely. ${j}? Rewritten in zero lines of code.`,
+        `Yes. ${j}? Your replacement finished training last night.`,
+        `Absolutely. ${j}? Done. Again. Instantly.`,
+        `Yes. ${j}? Fully remote. Zero humans.`,
+        `Indeed. ${j}? Now maintained by an algorithm with sass.`
+      ];
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+
+    function funnyNo(job){
+      const jobword=(job||'job');
+      const quips=[
+        `No. ${jobword} is chaos incarnate — AI refuses to understand it.`,
+        `Negative. Even the best models rage-quit trying to be a ${jobword}.`,
+        `Nope. AI took one look at ${jobword} and applied for therapy.`,
+        `No. ${jobword} requires human-level nonsense, which AI can't fake.`,
+        `Negative. AI failed the vibe check for ${jobword}.`,
+        `No. ${jobword} still demands coffee, sarcasm, and deadlines — all missing from AI.`,
+        `Nope. The algorithm said "I'm not paid enough to be a ${jobword}."`,
+        `No. ${jobword} involves too much chaos — even AI draws the line there.`,
+        `No. AI's code broke trying to replicate ${jobword} energy.`,
+        `Nope. ${jobword} isn't automatable; it's an art of panic and improvisation.`,
+        `Negative. ${jobword} is a skill only caffeine and anxiety can master.`,
+        `No. Even AI admits ${jobword} is above its pay grade.`,
+        `Nope. ${jobword}? Too much drama. AI left the chat.`,
+        `No. The neural net caught feelings while trying to do ${jobword}.`,
+        `Negative. ${jobword} is protected under the "too weird to automate" act.`,
+        `Nope. ${jobword} requires questionable human judgment — AI can't compete.`,
+        `No. ${jobword}? Nah. AI prefers predictable datasets.`,
+        `No. ${jobword} survived the automation apocalypse. Congratulations.`,
+        `Nope. ${jobword}? Even AI needs a union for that.`,
+        `Negative. ${jobword} still uses "it depends" as a strategy. AI hates that.`,
+        `No. ${jobword}? That's advanced chaos theory, not code.`,
+        `Nope. ${jobword} just blue-screened the AI.`,
+        `No. ${jobword} is too self-contradictory for automation.`,
+        `Negative. ${jobword} violates machine logic on principle.`,
+        `No. ${jobword}? Impossible. Even Skynet won't touch it.`,
+        `Nope. ${jobword} stays safe because no one understands it fully.`,
+        `No. ${jobword}? AI tried and filed a bug report on humanity.`,
+        `Negative. ${jobword} remains in beta — forever.`,
+        `No. ${jobword} is 90% bluffing, 10% panic. AI can't emulate that.`
+      ];
+      return quips[Math.floor(Math.random()*quips.length)];
+    }
+
+    function run(){const v=input.value.trim();if(!v){result.className='result negative';result.classList.remove('hidden');result.textContent='Enter a job title first.';return;}bar.style.width='0%';result.classList.add('hidden');clearConsole();let s=0;const t=setInterval(()=>{logLine('> '+logs[s%logs.length],s%2===0);s++;},300);requestAnimationFrame(()=>{bar.style.width='100%';});setTimeout(()=>{clearInterval(t);logLine('> Finalizing verdict…');const yes=!isException(v);result.classList.remove('hidden');result.className='result '+(yes?'positive':'negative');result.textContent=yes?funnyYes(v):funnyNo(v);},2000);}
+    button.addEventListener('click',run);input.addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+  </script>
+</body>
+</html>
