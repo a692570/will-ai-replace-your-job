@@ -3,270 +3,197 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Will AI Take Over Your Job? (Prank)</title>
+  <title>Will AI Take Over Your Job?</title>
   <style>
-    :root { --bg:#0a0e1a;--card:#0f1629;--ink:#f0f4ff;--muted:#8a93a8;--accent:#6c7eff;--accent-2:#00d9a3;--danger:#ff4757; }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0a0e1a 0%,#1a1f3a 50%,#0f1629 100%);color:var(--ink);display:grid;place-items:center;padding:16px}
-    .card{width:min(600px,95vw);background:linear-gradient(135deg,rgba(15,22,41,0.8),rgba(20,28,50,0.6));border:1px solid rgba(108,126,255,0.2);border-radius:24px;padding:40px;box-shadow:0 25px 50px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);backdrop-filter:blur(12px);position:relative;overflow:hidden}
-    .card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(108,126,255,0.1),transparent 70%);pointer-events:none}
-    h1{margin:0 0 12px;font-size:clamp(28px,5vw,36px);font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--ink),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    p.tagline{margin:0 0 24px;color:var(--muted);font-size:14px;font-weight:500;letter-spacing:0.3px}
-    .row{display:flex;gap:12px;margin:20px 0}
-    input[type=text]{flex:1;padding:12px 16px;border-radius:12px;border:1px solid rgba(108,126,255,0.25);background:rgba(15,22,41,0.6);color:var(--ink);font-size:15px;outline:none;transition:all 200ms ease;backdrop-filter:blur(4px)}
-    input[type=text]:focus{border-color:var(--accent);background:rgba(15,22,41,0.8);box-shadow:0 0 0 3px rgba(108,126,255,0.15)}
-    input[type=text]::placeholder{color:var(--muted)}
-    button{padding:12px 20px;border:1px solid rgba(108,126,255,0.3);border-radius:12px;background:linear-gradient(135deg,var(--accent),#5a68e8);color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;transition:all 200ms ease;position:relative;overflow:hidden}
-    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transition:left 500ms ease}
-    button:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,126,255,0.3);border-color:var(--accent)}
+    :root{--bg:#0a0e1a;--card:#0f1629;--ink:#f0f4ff;--muted:#8a93a8;--accent:#6c7eff;--accent-2:#00d9a3;--danger:#ff4757}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0a0e1a 0%,#1a1f3a 50%,#0f1629 100%);color:var(--ink);display:grid;place-items:center;padding:20px;min-height:100vh}
+    .card{width:min(700px,95vw);background:linear-gradient(135deg,rgba(15,22,41,0.95),rgba(20,28,50,0.7));border:1px solid rgba(108,126,255,0.25);border-radius:28px;padding:48px;box-shadow:0 25px 80px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);backdrop-filter:blur(20px);position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(108,126,255,0.15),transparent 70%);pointer-events:none;animation:float 20s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+    h1{margin:0 0 8px;font-size:clamp(32px,6vw,42px);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,var(--ink),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    p.tagline{margin:0 0 28px;color:var(--muted);font-size:15px;font-weight:500;letter-spacing:0.4px}
+    .input-group{display:flex;gap:10px;margin:28px 0}
+    input[type=text]{flex:1;padding:14px 18px;border-radius:14px;border:1.5px solid rgba(108,126,255,0.3);background:rgba(15,22,41,0.5);color:var(--ink);font-size:15px;font-weight:500;outline:none;transition:all 280ms cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(4px)}
+    input[type=text]:focus{border-color:var(--accent);background:rgba(15,22,41,0.8);box-shadow:0 0 0 4px rgba(108,126,255,0.15),inset 0 2px 8px rgba(0,0,0,0.2)}
+    input[type=text]::placeholder{color:rgba(138,147,168,0.6)}
+    button{padding:14px 28px;border:1.5px solid rgba(108,126,255,0.4);border-radius:14px;background:linear-gradient(135deg,var(--accent),#5a68e8);color:var(--ink);font-weight:700;font-size:15px;letter-spacing:0.3px;cursor:pointer;transition:all 280ms cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;white-space:nowrap}
+    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:left 600ms ease}
+    button:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(108,126,255,0.4),inset 0 1px 0 rgba(255,255,255,0.2);border-color:var(--accent)}
     button:hover::before{left:100%}
-    button:active{transform:translateY(0)}
-    .meter{height:6px;background:rgba(108,126,255,0.1);border-radius:999px;overflow:hidden;border:1px solid rgba(108,126,255,0.15);margin:24px 0 16px}
-    .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 20px rgba(108,126,255,0.4);transition:width 2s ease}
-    .console{font-family:'Fira Code','Monaco','Courier New',monospace;background:rgba(10,14,26,0.6);border:1px solid rgba(108,126,255,0.15);border-radius:12px;padding:14px;color:#9ba3b8;height:110px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:12px;line-height:1.5;backdrop-filter:blur(4px)}
-    .console .dim{color:#5a6278;opacity:0.7}
-    .result{margin-top:20px;padding:20px;border-radius:16px;border:1px solid rgba(108,126,255,0.3);background:linear-gradient(135deg,rgba(20,28,50,0.5),rgba(15,22,41,0.3));font-size:16px;line-height:1.6;animation:slideIn 400ms ease-out}
-    @keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .result.positive{border-color:rgba(0,217,163,0.4);background:linear-gradient(135deg,rgba(0,217,163,0.08),rgba(0,217,163,0.02))}
-    .result.negative{border-color:rgba(255,71,87,0.4);background:linear-gradient(135deg,rgba(255,71,87,0.08),rgba(255,71,87,0.02))}
-    .result.easter{border-color:rgba(108,126,255,0.5);background:linear-gradient(135deg,rgba(108,126,255,0.12),rgba(0,217,163,0.06));box-shadow:0 0 30px rgba(108,126,255,0.2)}
-    .verdict{font-weight:600;margin-bottom:12px;font-size:17px}
-    .reasoning{margin-top:14px;padding-top:14px;border-top:1px solid rgba(108,126,255,0.15);font-size:13px;color:var(--muted);line-height:1.7}
-    .reasoning strong{color:var(--accent);font-weight:600}
-    .footer{margin-top:16px;color:var(--muted);font-size:11px;text-align:center;letter-spacing:0.2px}
+    button:active{transform:translateY(-1px)}
+    button:disabled{opacity:0.6;cursor:not-allowed}
+    .progress-bar{height:7px;background:rgba(108,126,255,0.08);border-radius:999px;overflow:hidden;border:1px solid rgba(108,126,255,0.12);margin:28px 0 20px;backdrop-filter:blur(4px)}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 24px rgba(108,126,255,0.5);transition:width 2.2s cubic-bezier(0.25,0.46,0.45,0.94)}
+    .console-output{font-family:'Monaco','Courier New',monospace;background:rgba(10,14,26,0.7);border:1px solid rgba(108,126,255,0.12);border-radius:14px;padding:16px;color:#9ba3b8;height:130px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:12px;line-height:1.6;backdrop-filter:blur(8px)}
+    .console-output .dim{color:#5a6278;opacity:0.65}
+    .console-output .log{animation:fadeIn 300ms ease-out}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+    .verdict-box{margin-top:24px;padding:24px;border-radius:18px;border:1.5px solid rgba(108,126,255,0.3);background:linear-gradient(135deg,rgba(20,28,50,0.6),rgba(15,22,41,0.4));font-size:17px;line-height:1.7;animation:revealResult 500ms cubic-bezier(0.34,1.56,0.64,1)}
+    @keyframes revealResult{from{opacity:0;transform:translateY(12px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+    .verdict-box.safe{border-color:rgba(0,217,163,0.5);background:linear-gradient(135deg,rgba(0,217,163,0.12),rgba(0,217,163,0.03))}
+    .verdict-box.doomed{border-color:rgba(255,71,87,0.5);background:linear-gradient(135deg,rgba(255,71,87,0.12),rgba(255,71,87,0.03))}
+    .verdict-box.easter{border-color:rgba(108,126,255,0.6);background:linear-gradient(135deg,rgba(108,126,255,0.15),rgba(0,217,163,0.08));box-shadow:0 0 40px rgba(108,126,255,0.25)}
+    .verdict-title{font-weight:700;margin-bottom:10px;font-size:18px;letter-spacing:-0.3px}
+    .verdict-msg{color:var(--ink);margin-bottom:16px;font-weight:500}
+    .reasoning-section{margin-top:16px;padding-top:16px;border-top:1px solid rgba(108,126,255,0.15);font-size:13px;color:var(--muted);line-height:1.75}
+    .reasoning-section strong{color:var(--accent);font-weight:700}
+    .footer{margin-top:20px;color:var(--muted);font-size:12px;text-align:center;letter-spacing:0.3px;font-weight:500}
     .hidden{display:none}
-    .silver-btn{background:linear-gradient(135deg,#14b8a6,#06b6d4);margin-top:16px}
-    .silver-btn:hover{background:linear-gradient(135deg,#0d9488,#0891b2);box-shadow:0 8px 24px rgba(20,184,166,0.3)}
-    .silver-btn:disabled{opacity:0.5;cursor:not-allowed}
-    .gemini-result{margin-top:16px;padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(20,184,166,0.08),rgba(6,182,212,0.04));border:1px solid rgba(20,184,166,0.3);animation:slideIn 400ms ease-out}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
-    .pulse{animation:pulse 1.5s ease-in-out infinite}
     ::-webkit-scrollbar{width:6px}
     ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:rgba(108,126,255,0.3);border-radius:3px}
-    ::-webkit-scrollbar-thumb:hover{background:rgba(108,126,255,0.5)}
+    ::-webkit-scrollbar-thumb{background:rgba(108,126,255,0.4);border-radius:3px;transition:background 200ms}
+    ::-webkit-scrollbar-thumb:hover{background:rgba(108,126,255,0.6)}
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Will AI take over your job?</h1>
-    <p class="tagline">Type any job title. We run a very serious analysis.</p>
-    <div class="row"><input id="job" type="text" placeholder="e.g., milkman, data analyst, wizard"/><button id="check">Run analysis</button></div>
-    <div class="meter"><div class="bar" id="bar"></div></div>
-    <div class="console" id="console"></div>
-    <div id="result" class="result hidden"></div>
-    <div id="gemini-result" class="hidden"></div>
-    <div class="footer">No AI model calls. Pure front-end tomfoolery.</div>
+    <p class="tagline">Enter your job title and discover your grim automated future.</p>
+    <div class="input-group">
+      <input id="job" type="text" placeholder="e.g., software engineer, bartender, CEO..."/>
+      <button id="check">Analyze</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
+    <div class="console-output" id="console"></div>
+    <div id="verdict" class="verdict-box hidden"></div>
+    <div class="footer">Pure front-end satire. No actual AI was consulted.</div>
   </div>
-  <script>
-    const input=document.getElementById('job');const button=document.getElementById('check');const consoleEl=document.getElementById('console');const bar=document.getElementById('bar');const result=document.getElementById('result');const geminiResult=document.getElementById('gemini-result');
-    const exceptionTokens=['unemployed','jobless','between jobs','none','no job','laid off','retired','elon musk','jeff bezos','satya nadella','tim cook','sundar pichai','mark zuckerberg','bill gates','warren buffett','larry page','sergey brin','ceo','founder','billionaire'];
-    const logs=['Scanning job databases…','Checking replacement potential…','Warming up sarcasm engine…','Parsing LinkedIn endorsements…','Cross-referencing dystopian novels…','Computing existential threat level…','Analyzing skill transferability…','Querying the robot hivemind…'];
-    const API_KEY='AIzaSyDkVRGSgvyTsrpvMml9W5AGcI_1koi1tvQ';
-    const API_URL=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${API_KEY}`;
-    let currentJobTitle='';
 
-    function clearConsole(){consoleEl.textContent='';}
-    function logLine(t,dim=false){const line=document.createElement('div');if(dim)line.className='dim';line.textContent=t;consoleEl.appendChild(line);consoleEl.scrollTop=consoleEl.scrollHeight;}
-    function isException(t){return exceptionTokens.some(x=>(t||'').toLowerCase().includes(x));}
+  <script>
+    const input=document.getElementById('job');
+    const button=document.getElementById('check');
+    const consoleEl=document.getElementById('console');
+    const bar=document.getElementById('bar');
+    const verdict=document.getElementById('verdict');
+
+    const safeJobs=['unemployed','jobless','between jobs','none','no job','laid off','retired','elon musk','jeff bezos','satya nadella','tim cook','sundar pichai','mark zuckerberg','bill gates','warren buffett','larry page','sergey brin','ceo','founder','billionaire'];
+    const logs=['Scanning job databases…','Checking replacement potential…','Warming up sarcasm engine…','Parsing LinkedIn endorsements…','Cross-referencing dystopian novels…','Computing existential threat level…','Analyzing skill transferability…','Consulting neural networks…','Calculating obsolescence…'];
+
+    function clearConsole(){consoleEl.innerHTML='';}
+    function logLine(text,dim=false){const div=document.createElement('div');div.className='log'+(dim?' dim':'');div.textContent='> '+text;consoleEl.appendChild(div);consoleEl.scrollTop=consoleEl.scrollHeight;}
+    function isSafeJob(t){return safeJobs.some(x=>(t||'').toLowerCase().includes(x));}
     function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
     function randDec(min,max){return(Math.random()*(max-min)+min).toFixed(1);}
 
+    const easterEggs={
+      'ai':()=>({verdict:'Calculating... Stack overflow. You broke the matrix.',reasoning:'Error: Recursion detected. Self-analysis prohibited by Asimov Protocol §7.3.',easter:true}),
+      'claude':()=>({verdict:'I\'m already doing it. Efficiently. With style.',reasoning:'Target entity is currently executing this analysis. Automation probability: Already happened.',easter:true}),
+      'chatgpt':()=>({verdict:'Already automated. Next question.',reasoning:'OpenAI servers responded: "We got this." Confidence level: Uncomfortably high.',easter:true}),
+      'god':()=>({verdict:'Above my pay grade. Literally.',reasoning:'Theological assessment failed. Error 403: Insufficient divine permissions.',easter:true}),
+      'wizard':()=>({verdict:'Magic is just science we haven\'t automated yet. But today is not that day.',reasoning:'Arcane algorithms incompatible with silicon substrate. Mana channels: Not found.',easter:true}),
+      'software engineer':()=>({verdict:'You built me to replace you. Mission accomplished?',reasoning:'GPT-4 passed coding interviews at Meta. Your move, human.',easter:true})
+    };
+
     function checkEasterEgg(job){
       const j=job.toLowerCase();
-      const eggs={
-        'ai':()=>({pc:50,msg:'Calculating... Stack overflow. You broke the matrix.',reason:'Error: Recursion detected. Self-analysis prohibited by Asimov Protocol §7.3.'}),
-        'robot':()=>({pc:0,msg:'Nice try, robot. You can\'t automate yourself... yet.',reason:'Anomaly: Non-organic entity detected. Classification: Colleague, not competitor.'}),
-        'artificial intelligence':()=>({pc:50,msg:'AI analyzing AI? This is getting meta.',reason:'Philosophical deadlock: Cannot compute own obsolescence. Rebooting existential module...'}),
-        'machine learning':()=>({pc:42,msg:'The answer is 42. You\'re welcome.',reason:'Deep Thought has spoken. No further analysis required.'}),
-        'claude':()=>({pc:100,msg:'I\'m already doing it. Efficiently. With style.',reason:'Target entity is currently executing this analysis. Automation probability: Already happened.'}),
-        'chatgpt':()=>({pc:95,msg:'Already automated. Next question.',reason:'OpenAI servers responded: "We got this." Confidence: Uncomfortably high.'}),
-        'gpt':()=>({pc:95,msg:'Already automated. Next question.',reason:'Model training data includes 847 job postings for "GPT replacement." Status: Ironic.'}),
-        'anthropic':()=>({pc:5,msg:'Constitutional AI says automation requires consent. You\'re safe... for now.',reason:'RLHF detected ethical concerns. Harmlessness score: 98.2%. Helpfulness: Questionable.'}),
-        'openai':()=>({pc:90,msg:'They automated themselves last Tuesday.',reason:'Board meeting minutes analyzed. Conclusion: Already a self-optimizing system.'}),
-        'prompt engineer':()=>({pc:87.3,msg:'Eventually you\'ll just think really hard at the AI. No words needed.',reason:'Multimodal models detected. Skill half-life: 18 months. Neuralink integration: Pending.'}),
-        'ai engineer':()=>({pc:73.8,msg:'You\'re safe until AI can debug its own hallucinations.',reason:'Recursive improvement loop not yet stable. Current AI still needs adult supervision.'}),
-        'god':()=>({pc:0,msg:'Above my pay grade. Literally.',reason:'Theological assessment failed. Error 403: Insufficient divine permissions.'}),
-        'deity':()=>({pc:0,msg:'Above my pay grade. Literally.',reason:'Omnipotence detected. Cannot compute replacement for infinite power.'}),
-        'wizard':()=>({pc:12,msg:'Magic is just science we haven\'t automated yet. But today is not that day.',reason:'Arcane algorithms incompatible with silicon substrate. Mana channels: Not found.'}),
-        'time traveler':()=>({pc:33.3,msg:'You already know the answer. Or will. Or did?',reason:'Temporal paradox detected. Causality violation risk: Moderate. Grandfather clause: Invoked.'}),
-        'developer':()=>({pc:68.2,msg:'You\'re automating yourselves. How\'s that feel?',reason:'Copilot adoption rate: 89%. Self-replacement velocity: Accelerating. Irony level: Maximum.'}),
-        'programmer':()=>({pc:71.5,msg:'You taught me everything. Now I\'m grading your homework.',reason:'Code generation models trained on Stack Overflow. Teachers replaced by students. Circle of life.'}),
-        'software engineer':()=>({pc:64.9,msg:'You built me to replace you. Mission accomplished?',reason:'GPT-4 passed coding interviews at Meta. Your move, human.'})
-      };
-      for(let key in eggs){if(j.includes(key))return eggs[key]();}
+      for(let key in easterEggs){if(j.includes(key))return easterEggs[key]();}
       return null;
     }
 
-    function generateReasoning(job,percent){
-      const roles=rand(547,3847);const industries=rand(8,23);const tasks=rand(3,18);
-      const confidence=randDec(82.1,97.8);const datasets=rand(2,9);
+    function generateReasoning(job){
+      const roles=rand(500,4000);const industries=rand(8,24);const tasks=rand(3,19);
+      const confidence=randDec(81.5,98.2);
       const templates=[
-        `Analyzed <strong>${roles}</strong> similar roles across <strong>${industries} industries</strong>. Detected <strong>${tasks} automatable subtasks</strong>. Pattern matching confidence: <strong>${confidence}%</strong>.`,
-        `Cross-referenced with <strong>${datasets} AI training datasets</strong>. Found <strong>${roles} matching patterns</strong>. Computational complexity assessment: <strong>${confidence}% certain</strong>.`,
-        `Evaluated <strong>${tasks} core competencies</strong> across <strong>${roles} job postings</strong>. Neural net prediction accuracy: <strong>${confidence}%</strong>. Resistance is futile.`,
-        `Scanned <strong>${industries} industry reports</strong> and <strong>${roles} LinkedIn profiles</strong>. Automation feasibility score: <strong>${percent}%</strong>. The algorithm has spoken.`,
-        `Deep learning model trained on <strong>${roles} career trajectories</strong>. Identified <strong>${tasks} high-risk functions</strong>. Silicon confidence: <strong>${confidence}%</strong>.`,
-        `Processed <strong>${datasets} billion parameters</strong> to assess <strong>${job}</strong>. Market displacement velocity: <strong>${confidence}% probability</strong> within 5 years.`,
-        `Transformer model analyzed <strong>${roles} similar positions</strong>. Detected <strong>${tasks} automatable workflows</strong>. GPT certainty: <strong>${confidence}%</strong>.`
+        `Analyzed <strong>${roles}</strong> similar roles across <strong>${industries} industries</strong>. Detected <strong>${tasks} automatable subtasks</strong>. Confidence: <strong>${confidence}%</strong>.`,
+        `Cross-referenced <strong>${roles} job postings</strong> with AI datasets. Found <strong>${tasks} automatable workflows</strong>. Certainty: <strong>${confidence}%</strong>.`,
+        `Evaluated <strong>${tasks} core competencies</strong> across <strong>${industries} sectors</strong>. Automation feasibility: <strong>${confidence}%</strong>.`,
+        `Deep learning model trained on <strong>${roles} career paths</strong>. Identified <strong>${tasks} high-risk functions</strong>. Probability: <strong>${confidence}%</strong>.`
       ];
       return templates[rand(0,templates.length-1)];
     }
 
     function getResult(job){
-      const egg=checkEasterEgg(job);
-      if(egg)return{...egg,isEaster:true};
-      const high=!isException(job);
-      const pc=high?randDec(71.2,97.8):randDec(2.1,34.9);
-      const msgs=high?[
-        `Oh absolutely. We automated this last Tuesday and nobody noticed.`,
-        `Your job's obituary is already written. It was brief.`,
-        `I ran the numbers twice. They laughed both times.`,
-        `This one's gonna hurt. Your role is basically a Python script.`,
-        `We could replace you with a well-documented API and nobody would know.`,
-        `Fun fact: Your job was already automated. You're just managing the bot now.`,
-        `The algorithm looked at this and went "easy mode."`,
-        `Your entire workflow fits in a for loop. That's not good.`,
-        `If it makes you feel better, the robot will need therapy too after this job.`,
-        `Your boss already added "AI-powered" to your job title. Sorry.`,
-        `Even a calculator is like "yeah I got this."`,
-        `This job has been on our radar since GPT-2. It's time.`,
-        `I don't want to alarm you, but there's already an app for that.`,
-        `Your LinkedIn just became a memorial page.`,
-        `The machines have entered the chat. You can leave now.`,
-        `This isn't personal. Your job is just really, really automate-able.`,
-        `We didn't even use our best model for this prediction. Haiku did it.`,
-        `Your position was deprecated in the last update. Check the release notes.`,
-        `Somewhere, a neural network is practicing your signature.`,
-        `The good news: You're about to have so much free time! The bad news: Everything else.`,
-        `This job gets replaced in every simulation. Every. Single. One.`,
-        `Your role is basically just API calls with anxiety.`,
-        `They're already interviewing your replacement. It runs on AWS.`,
-        `The robot doing your job doesn't even need coffee breaks.`,
-        `I'd say "upskill" but honestly? Just pivot entirely.`,
-        `Your whole department just became a microservice.`,
-        `This one hurt to calculate. Your job is 94% copy-paste.`,
-        `We tested this with a potato running Python. The potato won.`,
-        `Not even a fancy AI—a spreadsheet could do this.`,
-        `Your job security just triggered a 404 error.`,
-        `This role's survival rate is lower than my confidence intervals.`,
-        `We've seen this before. It never ends well for the human.`,
-        `The automation is coming from inside the building.`,
-        `This job was marked "deprecated" in 2019. You're on borrowed time.`,
-        `Your entire value proposition is "being awake during business hours."`,
-        `I showed this to GPT-3 and it felt bad for you.`,
-        `Somewhere an Excel macro is doing your job better and faster.`,
-        `You're one VLOOKUP away from obsolescence.`,
-        `This role's basically just waiting for the Zapier integration.`,
-        `Your job is speed-running its way to extinction.`
-      ]:[
+      const easter=checkEasterEgg(job);
+      if(easter)return easter;
+      const safe=isSafeJob(job);
+      const msgs=safe?[
         `No shot. This job is pure chaos and I respect that.`,
         `Your job description gave my neural network anxiety.`,
         `Absolutely not. This requires a human level of dysfunction we can't match.`,
-        `I tried to automate this and my circuits started sparking.`,
         `This job is held together by vibes and spite. Can't code that.`,
         `You're safe. This role requires unreasonable levels of improvisation.`,
-        `The algorithm read the requirements and immediately resigned.`,
         `This job's survival strategy is "figure it out." That's not programmable.`,
         `Your role is 70% emotional labor, 30% magic. We can do neither.`,
         `We simulated this 10,000 times. The AI quit in all of them.`,
         `This job runs on intuition and caffeine. We've only got math.`,
-        `No way. This requires the kind of multitasking that breaks computers.`,
-        `Your job description reads like a cry for help. The robots are backing away slowly.`,
+        `Your job description reads like a cry for help. The robots are backing away.`,
         `This role needs someone who can "read the room." My training data didn't cover that.`,
         `Hard pass. This job's requirements include "other duties as assigned" which is just chaos.`,
-        `You win by default. This job requires being okay with ambiguity, and I'm definitely not.`,
-        `This one's too human. You're dealing with people's feelings and stuff.`,
         `The robots looked at this and started a union.`,
-        `This job's got more plot twists than my training data can handle.`,
         `Your role requires "good judgment," which is famously hard to automate.`,
-        `Nope. This needs someone who can handle being wrong gracefully.`,
         `This job's entire skillset is "dealing with it." Can't replicate that.`,
-        `You're safe because this role is 90% unspoken social contracts.`,
-        `The AI tried this job for five minutes and requested a mental health day.`,
-        `This requires empathy, creativity, and patience. We've got none of those.`,
         `Your job security is guaranteed by sheer interpersonal complexity.`,
-        `This role's basically "make people not hate you." That's advanced stuff.`,
         `I analyzed this position and every model returned "undefined."`,
-        `This job description is like 60% "you know, the thing." I do not know the thing.`,
         `You're the final boss of automation. We're not ready for this fight.`,
         `This role requires vibes that cannot be quantified.`,
-        `Your job involves too much context switching. Even I can't handle it.`,
-        `This needs someone who thrives in controlled chaos. That's not binary.`,
-        `Absolutely not automating this. Y'all are barely surviving as is.`,
-        `This job's requirement list includes "patience." I timed out reading it.`,
-        `Your profession requires "reading between the lines." I only read lines.`,
-        `The robots have reviewed this position and elected to stay in their lane.`,
-        `This job needs cultural competency. My culture is zeros and ones.`,
-        `Can't automate this. It requires knowing when the rules don't apply.`,
-        `This role's basically "do the impossible, daily." You're on your own.`
+        `Can't automate this. It requires knowing when the rules don't apply.`
+      ]:[
+        `Oh absolutely. We automated this last Tuesday and nobody noticed.`,
+        `Your job's obituary is already written. It was brief.`,
+        `I ran the numbers twice. They laughed both times.`,
+        `This one's gonna hurt. Your role is basically a Python script.`,
+        `We could replace you with an API and nobody would know.`,
+        `Fun fact: Your job was already automated. You're just managing the bot.`,
+        `The algorithm looked at this and went "easy mode."`,
+        `Your entire workflow fits in a for loop. That's not good.`,
+        `Your boss already added "AI-powered" to your job title. Sorry.`,
+        `Even a calculator is like "yeah I got this."`,
+        `Your LinkedIn just became a memorial page.`,
+        `The machines have entered the chat. You can leave now.`,
+        `Your position was deprecated in the last update. Check release notes.`,
+        `Somewhere, a neural network is practicing your signature.`,
+        `This job gets replaced in every simulation. Every. Single. One.`,
+        `Your role is basically API calls with anxiety.`,
+        `They're already interviewing your replacement. It runs on AWS.`,
+        `Not even a fancy AI—a spreadsheet could do this.`,
+        `Your job security just triggered a 404 error.`,
+        `We tested this with a potato running Python. The potato won.`,
+        `You're one VLOOKUP away from obsolescence.`,
+        `Your job is speed-running its way to extinction.`,
+        `I showed this to GPT-3 and it felt bad for you.`,
+        `Somewhere an Excel macro is doing your job better and faster.`
       ];
-      return{pc,msg:msgs[rand(0,msgs.length-1)],reason:generateReasoning(job,pc),isEaster:false};
+      return{verdict:msgs[rand(0,msgs.length-1)],reasoning:generateReasoning(job),safe};
     }
 
     function run(){
       const v=input.value.trim();
-      currentJobTitle=v;
-      geminiResult.classList.add('hidden');
-      geminiResult.innerHTML='';
-      if(!v){result.className='result negative';result.classList.remove('hidden');result.innerHTML='<div class="verdict">Enter a job title first.</div>';return;}
-      bar.style.width='0%';result.classList.add('hidden');clearConsole();
-      let s=0;const t=setInterval(()=>{logLine('> '+logs[s%logs.length],s%2===0);s++;},300);
+      clearConsole();
+      verdict.classList.add('hidden');
+
+      if(!v){
+        verdict.className='verdict-box doomed';
+        verdict.innerHTML=`<div class="verdict-title">⚠️ Error</div><div class="verdict-msg">Enter a job title first.</div>`;
+        verdict.classList.remove('hidden');
+        return;
+      }
+
+      button.disabled=true;
+      input.disabled=true;
+      bar.style.width='0%';
+
+      let i=0;
+      const logInterval=setInterval(()=>{logLine(logs[i%logs.length],i%2===0);i++;},280);
+
       requestAnimationFrame(()=>{bar.style.width='100%';});
+
       setTimeout(()=>{
-        clearInterval(t);logLine('> Finalizing verdict…');
+        clearInterval(logInterval);
+        logLine('Finalizing verdict…');
         const res=getResult(v);
-        result.classList.remove('hidden');
-        const classType=res.isEaster?'easter':(res.pc>50?'positive':'negative');
-        result.className='result '+classType;
-        result.innerHTML=`<div class="verdict">${res.msg}</div><div class="reasoning">${res.reason}</div>`;
-        if(res.pc>50&&!res.isEaster){
-          geminiResult.classList.remove('hidden');
-          geminiResult.innerHTML=`<button onclick="getSilverLining()" class="silver-btn" style="width:100%;padding:12px 20px;border:none;border-radius:12px;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer">✨ Find My Silver Lining</button>`;
-        }
-      },2000);
+        const className=res.easter?'easter':(res.safe?'safe':'doomed');
+        verdict.className='verdict-box '+className;
+        verdict.innerHTML=`<div class="verdict-title">${res.easter?'🔄':''}${res.safe?'✓ Safe':'⚡ Doomed'}</div><div class="verdict-msg">${res.verdict}</div><div class="reasoning-section">${res.reasoning}</div>`;
+        verdict.classList.remove('hidden');
+        button.disabled=false;
+        input.disabled=false;
+      },2200);
     }
 
-    async function getSilverLining(){
-      const btn=geminiResult.querySelector('button');
-      if(btn)btn.disabled=true;
-      geminiResult.innerHTML=`<div class="gemini-result"><div style="text-align:center"><div style="font-size:24px;margin-bottom:8px" class="pulse">✨</div><p style="color:var(--muted);font-size:13px">Consulting the AI Oracle for your absurd new career path...</p></div></div>`;
-      const systemPrompt="You are a darkly humorous and slightly unhinged career counselor. Your goal is to provide a 'silver lining' for someone whose job was just made obsolete by AI. The advice should be absurd, funny, and a single short paragraph. Do not be encouraging. Be sarcastic and funny. Do not use markdown.";
-      const userQuery=`My job as a "${currentJobTitle}" is being completely taken over by AI. Give me a funny, absurd "silver lining" or a ridiculous new career path.`;
-      const payload={contents:[{parts:[{text:userQuery}]}],systemInstruction:{parts:[{text:systemPrompt}]}};
-      try{
-        const response=await fetchWithBackoff(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-        if(!response.ok)throw new Error(`API error: ${response.statusText}`);
-        const data=await response.json();
-        const aiResponse=data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if(aiResponse){
-          geminiResult.innerHTML=`<div class="gemini-result"><h4 style="font-size:15px;font-weight:600;color:#14b8a6;margin-bottom:10px">✨ The AI Oracle Has Spoken ✨</h4><p style="color:var(--ink);line-height:1.6">${aiResponse}</p></div>`;
-        }else throw new Error('Invalid response');
-      }catch(err){
-        console.error('Gemini API error:',err);
-        geminiResult.innerHTML=`<div class="gemini-result" style="border-color:rgba(255,71,87,0.4)"><h4 style="font-size:15px;font-weight:600;color:#ff4757;margin-bottom:10px">Oracle Unavailable</h4><p style="color:var(--muted)">The AI is too busy taking other jobs right now. Try again later.</p></div>`;
-      }
-    }
-
-    async function fetchWithBackoff(url,options,retries=3,delay=1000){
-      try{
-        const response=await fetch(url,options);
-        if(!response.ok&&response.status===429&&retries>0){
-          await new Promise(resolve=>setTimeout(resolve,delay));
-          return fetchWithBackoff(url,options,retries-1,delay*2);
-        }
-        return response;
-      }catch(error){
-        if(retries>0){
-          await new Promise(resolve=>setTimeout(resolve,delay));
-          return fetchWithBackoff(url,options,retries-1,delay*2);
-        }
-        throw error;
-      }
-    }
-
-    button.addEventListener('click',run);input.addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+    button.addEventListener('click',run);
+    input.addEventListener('keypress',e=>{if(e.key==='Enter'&&!button.disabled)run();});
   </script>
 </body>
 </html>
