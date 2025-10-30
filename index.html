@@ -5,60 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Will AI Take Over Your Job?</title>
   <style>
-    :root{--bg:#0a0e1a;--card:#0f1629;--ink:#f0f4ff;--muted:#8a93a8;--accent:#6c7eff;--accent-2:#00d9a3;--danger:#ff4757}
+    :root{--warm-dark:#1a1210;--warm-bg:#2d1f18;--warm-card:#3d2a20;--warm-orange:#ff8c42;--warm-orange-dark:#e67e3c;--warm-red:#ff6b5a;--warm-accent:#ffa500;--ink:#fff8f3;--muted:#c9b5a8}
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0a0e1a 0%,#1a1f3a 50%,#0f1629 100%);color:var(--ink);display:grid;place-items:center;padding:20px;min-height:100vh}
-    .card{width:min(700px,95vw);background:linear-gradient(135deg,rgba(15,22,41,0.95),rgba(20,28,50,0.7));border:1px solid rgba(108,126,255,0.25);border-radius:28px;padding:48px;box-shadow:0 25px 80px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);backdrop-filter:blur(20px);position:relative;overflow:hidden}
-    .card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(108,126,255,0.15),transparent 70%);pointer-events:none;animation:float 20s ease-in-out infinite}
-    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
-    h1{margin:0 0 8px;font-size:clamp(32px,6vw,42px);font-weight:800;letter-spacing:-1px;background:linear-gradient(135deg,var(--ink),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    p.tagline{margin:0 0 28px;color:var(--muted);font-size:15px;font-weight:500;letter-spacing:0.4px}
-    .input-group{display:flex;gap:10px;margin:28px 0}
-    input[type=text]{flex:1;padding:14px 18px;border-radius:14px;border:1.5px solid rgba(108,126,255,0.3);background:rgba(15,22,41,0.5);color:var(--ink);font-size:15px;font-weight:500;outline:none;transition:all 280ms cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(4px)}
-    input[type=text]:focus{border-color:var(--accent);background:rgba(15,22,41,0.8);box-shadow:0 0 0 4px rgba(108,126,255,0.15),inset 0 2px 8px rgba(0,0,0,0.2)}
-    input[type=text]::placeholder{color:rgba(138,147,168,0.6)}
-    button{padding:14px 28px;border:1.5px solid rgba(108,126,255,0.4);border-radius:14px;background:linear-gradient(135deg,var(--accent),#5a68e8);color:var(--ink);font-weight:700;font-size:15px;letter-spacing:0.3px;cursor:pointer;transition:all 280ms cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;white-space:nowrap}
-    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:left 600ms ease}
-    button:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(108,126,255,0.4),inset 0 1px 0 rgba(255,255,255,0.2);border-color:var(--accent)}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#1a1210 0%,#2d1f18 50%,#221813 100%);color:var(--ink);display:flex;align-items:center;justify-content:center;padding:20px;min-height:100vh}
+    .container{display:grid;grid-template-columns:1fr 1fr;gap:48px;width:min(1200px,95vw);align-items:center}
+    @media(max-width:900px){.container{grid-template-columns:1fr;gap:32px}}
+    .dog-section{display:flex;align-items:center;justify-content:center;position:relative}
+    .dog-container{width:280px;height:280px;position:relative}
+    .flames{position:absolute;width:100%;height:100%;bottom:0;left:0;opacity:0.7}
+    .flame{position:absolute;width:30px;height:50px;background:linear-gradient(180deg,var(--warm-red),var(--warm-orange),transparent);border-radius:50% 50% 0 0;animation:flicker 2s ease-in-out infinite;opacity:0.8}
+    .flame:nth-child(1){left:10%;bottom:10%;animation-delay:0s}
+    .flame:nth-child(2){left:35%;bottom:5%;animation-delay:0.3s}
+    .flame:nth-child(3){left:60%;bottom:15%;animation-delay:0.6s}
+    .flame:nth-child(4){left:80%;bottom:8%;animation-delay:0.2s}
+    @keyframes flicker{0%,100%{transform:scaleY(1) translateX(0);opacity:0.7}50%{transform:scaleY(1.2) translateX(2px);opacity:1}}
+    svg{filter:drop-shadow(0 4px 12px rgba(255,107,90,0.2));position:relative;z-index:2}
+    .form-section{background:linear-gradient(135deg,rgba(61,42,32,0.9),rgba(45,31,24,0.7));border:2px solid var(--warm-orange);border-radius:24px;padding:40px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)}
+    h1{margin:0 0 8px;font-size:clamp(28px,4vw,36px);font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--warm-orange),var(--warm-red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    p.tagline{margin:0 0 24px;color:var(--muted);font-size:14px;font-weight:500;letter-spacing:0.5px}
+    .input-group{display:flex;gap:10px;margin:24px 0}
+    input[type=text]{flex:1;padding:13px 16px;border-radius:12px;border:1.5px solid var(--warm-orange);background:rgba(61,42,32,0.6);color:var(--ink);font-size:14px;font-weight:500;outline:none;transition:all 280ms cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(4px)}
+    input[type=text]:focus{border-color:var(--warm-red);background:rgba(61,42,32,0.9);box-shadow:0 0 0 4px rgba(255,107,90,0.15),inset 0 2px 8px rgba(0,0,0,0.2)}
+    input[type=text]::placeholder{color:rgba(201,181,168,0.5)}
+    button{padding:13px 26px;border:1.5px solid var(--warm-orange);border-radius:12px;background:linear-gradient(135deg,var(--warm-orange),var(--warm-orange-dark));color:#1a1210;font-weight:800;font-size:14px;letter-spacing:0.4px;cursor:pointer;transition:all 280ms cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;white-space:nowrap}
+    button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transition:left 600ms ease}
+    button:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(255,107,90,0.4),inset 0 1px 0 rgba(255,255,255,0.3);border-color:var(--warm-red)}
     button:hover::before{left:100%}
     button:active{transform:translateY(-1px)}
     button:disabled{opacity:0.6;cursor:not-allowed}
-    .progress-bar{height:7px;background:rgba(108,126,255,0.08);border-radius:999px;overflow:hidden;border:1px solid rgba(108,126,255,0.12);margin:28px 0 20px;backdrop-filter:blur(4px)}
-    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 24px rgba(108,126,255,0.5);transition:width 2.2s cubic-bezier(0.25,0.46,0.45,0.94)}
-    .console-output{font-family:'Monaco','Courier New',monospace;background:rgba(10,14,26,0.7);border:1px solid rgba(108,126,255,0.12);border-radius:14px;padding:16px;color:#9ba3b8;height:130px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:12px;line-height:1.6;backdrop-filter:blur(8px)}
-    .console-output .dim{color:#5a6278;opacity:0.65}
+    .progress-bar{height:6px;background:rgba(255,140,66,0.12);border-radius:999px;overflow:hidden;border:1px solid rgba(255,140,66,0.2);margin:22px 0 18px;backdrop-filter:blur(4px)}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--warm-orange),var(--warm-red));box-shadow:0 0 20px rgba(255,107,90,0.5);transition:width 2.2s cubic-bezier(0.25,0.46,0.45,0.94)}
+    .console-output{font-family:'Monaco','Courier New',monospace;background:rgba(26,18,16,0.8);border:1px solid rgba(255,140,66,0.15);border-radius:12px;padding:14px;color:#d4a98f;height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:11px;line-height:1.5;backdrop-filter:blur(8px)}
     .console-output .log{animation:fadeIn 300ms ease-out}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-    .verdict-box{margin-top:24px;padding:24px;border-radius:18px;border:1.5px solid rgba(108,126,255,0.3);background:linear-gradient(135deg,rgba(20,28,50,0.6),rgba(15,22,41,0.4));font-size:17px;line-height:1.7;animation:revealResult 500ms cubic-bezier(0.34,1.56,0.64,1)}
-    @keyframes revealResult{from{opacity:0;transform:translateY(12px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
-    .verdict-box.safe{border-color:rgba(0,217,163,0.5);background:linear-gradient(135deg,rgba(0,217,163,0.12),rgba(0,217,163,0.03))}
-    .verdict-box.doomed{border-color:rgba(255,71,87,0.5);background:linear-gradient(135deg,rgba(255,71,87,0.12),rgba(255,71,87,0.03))}
-    .verdict-box.easter{border-color:rgba(108,126,255,0.6);background:linear-gradient(135deg,rgba(108,126,255,0.15),rgba(0,217,163,0.08));box-shadow:0 0 40px rgba(108,126,255,0.25)}
-    .verdict-title{font-weight:700;margin-bottom:10px;font-size:18px;letter-spacing:-0.3px}
-    .verdict-msg{color:var(--ink);margin-bottom:16px;font-weight:500}
-    .reasoning-section{margin-top:16px;padding-top:16px;border-top:1px solid rgba(108,126,255,0.15);font-size:13px;color:var(--muted);line-height:1.75}
-    .reasoning-section strong{color:var(--accent);font-weight:700}
-    .footer{margin-top:20px;color:var(--muted);font-size:12px;text-align:center;letter-spacing:0.3px;font-weight:500}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+    .verdict-box{margin-top:20px;padding:20px;border-radius:16px;border:1.5px solid rgba(255,140,66,0.3);background:linear-gradient(135deg,rgba(61,42,32,0.7),rgba(45,31,24,0.5));font-size:15px;line-height:1.65;animation:revealResult 500ms cubic-bezier(0.34,1.56,0.64,1)}
+    @keyframes revealResult{from{opacity:0;transform:translateY(10px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+    .verdict-box.safe{border-color:rgba(255,165,0,0.6);background:linear-gradient(135deg,rgba(255,165,0,0.15),rgba(255,165,0,0.05))}
+    .verdict-box.doomed{border-color:rgba(255,107,90,0.6);background:linear-gradient(135deg,rgba(255,107,90,0.15),rgba(255,107,90,0.05))}
+    .verdict-box.easter{border-color:rgba(255,140,66,0.7);background:linear-gradient(135deg,rgba(255,140,66,0.2),rgba(255,107,90,0.08));box-shadow:0 0 30px rgba(255,140,66,0.2)}
+    .verdict-title{font-weight:800;margin-bottom:8px;font-size:16px;letter-spacing:-0.2px}
+    .verdict-msg{color:var(--ink);margin-bottom:12px;font-weight:500}
+    .reasoning-section{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,140,66,0.15);font-size:12px;color:var(--muted);line-height:1.65}
+    .reasoning-section strong{color:var(--warm-orange);font-weight:700}
+    .footer{margin-top:16px;color:var(--muted);font-size:11px;text-align:center;letter-spacing:0.3px;font-weight:500}
     .hidden{display:none}
-    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar{width:5px}
     ::-webkit-scrollbar-track{background:transparent}
-    ::-webkit-scrollbar-thumb{background:rgba(108,126,255,0.4);border-radius:3px;transition:background 200ms}
-    ::-webkit-scrollbar-thumb:hover{background:rgba(108,126,255,0.6)}
+    ::-webkit-scrollbar-thumb{background:rgba(255,140,66,0.4);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:rgba(255,140,66,0.6)}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Will AI take over your job?</h1>
-    <p class="tagline">Enter your job title and discover your grim automated future.</p>
-    <div class="input-group">
-      <input id="job" type="text" placeholder="e.g., software engineer, bartender, CEO..."/>
-      <button id="check">Analyze</button>
+  <div class="container">
+    <div class="dog-section">
+      <div class="dog-container">
+        <div class="flames">
+          <div class="flame"></div>
+          <div class="flame"></div>
+          <div class="flame"></div>
+          <div class="flame"></div>
+        </div>
+        <svg viewBox="0 0 200 200" width="280" height="280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dogGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#d4a574;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#c99060;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <!-- Chair back -->
+          <rect x="30" y="60" width="140" height="80" fill="none" stroke="#8b6f47" stroke-width="2" rx="4"/>
+          <!-- Table -->
+          <rect x="50" y="120" width="100" height="8" fill="#8b6f47"/>
+          <!-- Head -->
+          <circle cx="100" cy="80" r="30" fill="url(#dogGradient)"/>
+          <!-- Ears -->
+          <ellipse cx="75" cy="55" rx="12" ry="18" fill="#c99060"/>
+          <ellipse cx="125" cy="55" rx="12" ry="18" fill="#c99060"/>
+          <!-- Eyes (content/resigned) -->
+          <circle cx="90" cy="75" r="4" fill="#2d1f18"/>
+          <circle cx="110" cy="75" r="4" fill="#2d1f18"/>
+          <!-- Snout -->
+          <ellipse cx="100" cy="92" rx="18" ry="14" fill="#d4a574"/>
+          <!-- Nose -->
+          <ellipse cx="100" cy="90" rx="6" ry="5" fill="#2d1f18"/>
+          <!-- Mouth (calm smile) -->
+          <path d="M 100 90 Q 95 100 90 98" stroke="#2d1f18" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M 100 90 Q 105 100 110 98" stroke="#2d1f18" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Body -->
+          <ellipse cx="100" cy="130" rx="32" ry="28" fill="url(#dogGradient)"/>
+          <!-- Front paws -->
+          <rect x="80" y="145" width="10" height="25" fill="url(#dogGradient)" rx="5"/>
+          <rect x="110" y="145" width="10" height="25" fill="url(#dogGradient)" rx="5"/>
+          <!-- Coffee cup on table -->
+          <rect x="140" y="110" width="20" height="16" fill="none" stroke="#ff8c42" stroke-width="1.5" rx="2"/>
+          <path d="M 160 112 Q 165 112 165 118 Q 165 122 160 122" stroke="#ff8c42" stroke-width="1.5" fill="none"/>
+          <text x="145" y="122" font-size="8" fill="#ff8c42" font-weight="bold">☕</text>
+        </svg>
+      </div>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
-    <div class="console-output" id="console"></div>
-    <div id="verdict" class="verdict-box hidden"></div>
-    <div class="footer">Pure front-end satire. No actual AI was consulted.</div>
+
+    <div class="form-section">
+      <h1>Will AI take over your job?</h1>
+      <p class="tagline">This is fine. Let's find out how fine it really is.</p>
+      <div class="input-group">
+        <input id="job" type="text" placeholder="Enter your job title..."/>
+        <button id="check">Analyze</button>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
+      <div class="console-output" id="console"></div>
+      <div id="verdict" class="verdict-box hidden"></div>
+      <div class="footer">This is definitely fine. No robots consulted.</div>
+    </div>
   </div>
 
   <script>
@@ -175,7 +233,7 @@
       bar.style.width='0%';
 
       let i=0;
-      const logInterval=setInterval(()=>{logLine(logs[i%logs.length],i%2===0);i++;},280);
+      const logInterval=setInterval(()=>{logLine(logs[i%logs.length],i%2===0);i++;},260);
 
       requestAnimationFrame(()=>{bar.style.width='100%';});
 
@@ -185,7 +243,7 @@
         const res=getResult(v);
         const className=res.easter?'easter':(res.safe?'safe':'doomed');
         verdict.className='verdict-box '+className;
-        verdict.innerHTML=`<div class="verdict-title">${res.easter?'🔄':''}${res.safe?'✓ Safe':'⚡ Doomed'}</div><div class="verdict-msg">${res.verdict}</div><div class="reasoning-section">${res.reasoning}</div>`;
+        verdict.innerHTML=`<div class="verdict-title">${res.easter?'🔄':''}${res.safe?'✓ Safe':'🔥 Doomed'}</div><div class="verdict-msg">${res.verdict}</div><div class="reasoning-section">${res.reasoning}</div>`;
         verdict.classList.remove('hidden');
         button.disabled=false;
         input.disabled=false;
