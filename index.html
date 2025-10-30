@@ -36,6 +36,12 @@
     .reasoning strong{color:var(--accent);font-weight:600}
     .footer{margin-top:16px;color:var(--muted);font-size:11px;text-align:center;letter-spacing:0.2px}
     .hidden{display:none}
+    .silver-btn{background:linear-gradient(135deg,#14b8a6,#06b6d4);margin-top:16px}
+    .silver-btn:hover{background:linear-gradient(135deg,#0d9488,#0891b2);box-shadow:0 8px 24px rgba(20,184,166,0.3)}
+    .silver-btn:disabled{opacity:0.5;cursor:not-allowed}
+    .gemini-result{margin-top:16px;padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(20,184,166,0.08),rgba(6,182,212,0.04));border:1px solid rgba(20,184,166,0.3);animation:slideIn 400ms ease-out}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+    .pulse{animation:pulse 1.5s ease-in-out infinite}
     ::-webkit-scrollbar{width:6px}
     ::-webkit-scrollbar-track{background:transparent}
     ::-webkit-scrollbar-thumb{background:rgba(108,126,255,0.3);border-radius:3px}
@@ -50,12 +56,16 @@
     <div class="meter"><div class="bar" id="bar"></div></div>
     <div class="console" id="console"></div>
     <div id="result" class="result hidden"></div>
+    <div id="gemini-result" class="hidden"></div>
     <div class="footer">No AI model calls. Pure front-end tomfoolery.</div>
   </div>
   <script>
-    const input=document.getElementById('job');const button=document.getElementById('check');const consoleEl=document.getElementById('console');const bar=document.getElementById('bar');const result=document.getElementById('result');
+    const input=document.getElementById('job');const button=document.getElementById('check');const consoleEl=document.getElementById('console');const bar=document.getElementById('bar');const result=document.getElementById('result');const geminiResult=document.getElementById('gemini-result');
     const exceptionTokens=['unemployed','jobless','between jobs','none','no job','laid off','retired','elon musk','jeff bezos','satya nadella','tim cook','sundar pichai','mark zuckerberg','bill gates','warren buffett','larry page','sergey brin','ceo','founder','billionaire'];
     const logs=['Scanning job databases…','Checking replacement potential…','Warming up sarcasm engine…','Parsing LinkedIn endorsements…','Cross-referencing dystopian novels…','Computing existential threat level…','Analyzing skill transferability…','Querying the robot hivemind…'];
+    const API_KEY='AIzaSyDkVRGSgvyTsrpvMml9W5AGcI_1koi1tvQ';
+    const API_URL=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${API_KEY}`;
+    let currentJobTitle='';
 
     function clearConsole(){consoleEl.textContent='';}
     function logLine(t,dim=false){const line=document.createElement('div');if(dim)line.className='dim';line.textContent=t;consoleEl.appendChild(line);consoleEl.scrollTop=consoleEl.scrollHeight;}
@@ -197,6 +207,9 @@
 
     function run(){
       const v=input.value.trim();
+      currentJobTitle=v;
+      geminiResult.classList.add('hidden');
+      geminiResult.innerHTML='';
       if(!v){result.className='result negative';result.classList.remove('hidden');result.innerHTML='<div class="verdict">Enter a job title first.</div>';return;}
       bar.style.width='0%';result.classList.add('hidden');clearConsole();
       let s=0;const t=setInterval(()=>{logLine('> '+logs[s%logs.length],s%2===0);s++;},300);
@@ -208,8 +221,51 @@
         const classType=res.isEaster?'easter':(res.pc>50?'positive':'negative');
         result.className='result '+classType;
         result.innerHTML=`<div class="verdict">${res.msg}</div><div class="reasoning">${res.reason}</div>`;
+        if(res.pc>50&&!res.isEaster){
+          geminiResult.classList.remove('hidden');
+          geminiResult.innerHTML=`<button onclick="getSilverLining()" class="silver-btn" style="width:100%;padding:12px 20px;border:none;border-radius:12px;color:var(--ink);font-weight:600;font-size:14px;cursor:pointer">✨ Find My Silver Lining</button>`;
+        }
       },2000);
     }
+
+    async function getSilverLining(){
+      const btn=geminiResult.querySelector('button');
+      if(btn)btn.disabled=true;
+      geminiResult.innerHTML=`<div class="gemini-result"><div style="text-align:center"><div style="font-size:24px;margin-bottom:8px" class="pulse">✨</div><p style="color:var(--muted);font-size:13px">Consulting the AI Oracle for your absurd new career path...</p></div></div>`;
+      const systemPrompt="You are a darkly humorous and slightly unhinged career counselor. Your goal is to provide a 'silver lining' for someone whose job was just made obsolete by AI. The advice should be absurd, funny, and a single short paragraph. Do not be encouraging. Be sarcastic and funny. Do not use markdown.";
+      const userQuery=`My job as a "${currentJobTitle}" is being completely taken over by AI. Give me a funny, absurd "silver lining" or a ridiculous new career path.`;
+      const payload={contents:[{parts:[{text:userQuery}]}],systemInstruction:{parts:[{text:systemPrompt}]}};
+      try{
+        const response=await fetchWithBackoff(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+        if(!response.ok)throw new Error(`API error: ${response.statusText}`);
+        const data=await response.json();
+        const aiResponse=data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if(aiResponse){
+          geminiResult.innerHTML=`<div class="gemini-result"><h4 style="font-size:15px;font-weight:600;color:#14b8a6;margin-bottom:10px">✨ The AI Oracle Has Spoken ✨</h4><p style="color:var(--ink);line-height:1.6">${aiResponse}</p></div>`;
+        }else throw new Error('Invalid response');
+      }catch(err){
+        console.error('Gemini API error:',err);
+        geminiResult.innerHTML=`<div class="gemini-result" style="border-color:rgba(255,71,87,0.4)"><h4 style="font-size:15px;font-weight:600;color:#ff4757;margin-bottom:10px">Oracle Unavailable</h4><p style="color:var(--muted)">The AI is too busy taking other jobs right now. Try again later.</p></div>`;
+      }
+    }
+
+    async function fetchWithBackoff(url,options,retries=3,delay=1000){
+      try{
+        const response=await fetch(url,options);
+        if(!response.ok&&response.status===429&&retries>0){
+          await new Promise(resolve=>setTimeout(resolve,delay));
+          return fetchWithBackoff(url,options,retries-1,delay*2);
+        }
+        return response;
+      }catch(error){
+        if(retries>0){
+          await new Promise(resolve=>setTimeout(resolve,delay));
+          return fetchWithBackoff(url,options,retries-1,delay*2);
+        }
+        throw error;
+      }
+    }
+
     button.addEventListener('click',run);input.addEventListener('keydown',e=>{if(e.key==='Enter')run();});
   </script>
 </body>
