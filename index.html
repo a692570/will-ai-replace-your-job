@@ -9,7 +9,7 @@
     :root{--warm-dark:#1a1210;--warm-bg:#2d1f18;--warm-card:#3d2a20;--warm-orange:#ff8c42;--warm-orange-dark:#e67e3c;--warm-red:#ff6b5a;--warm-accent:#ffa500;--ink:#fff8f3;--muted:#c9b5a8}
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#1a1210 0%,#2d1f18 50%,#221813 100%);color:var(--ink);display:flex;align-items:center;justify-content:center;padding:20px;min-height:100vh;position:relative}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#1a1210 0%,#2d1f18 50%,#221813 100%);color:var(--ink);display:flex;align-items:center;justify-content:center;padding:20px;min-height:100vh;position:relative;padding-bottom:80px}
     .container{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);width:min(1200px,95vw);align-items:center}
     @media(max-width:900px){.container{grid-template-columns:1fr;gap:32px}}
     @media(max-width:500px){.input-group{flex-direction:column}button{width:100%}}
@@ -70,7 +70,7 @@
           <div class="flame"></div>
           <div class="flame"></div>
         </div>
-        <img src="https://miro.medium.com/0*ZjYSm_q36J4KChdn" alt="This is fine" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;filter:drop-shadow(0 4px 12px rgba(255,107,90,0.2))"/>
+        <img src="https://miro.medium.com/0*ZjYSm_q36J4KChdn" alt="This is fine" onerror="this.style.display='none';this.parentElement.style.background='radial-gradient(circle,#ff8c42,#ff6b5a)';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center'" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;filter:drop-shadow(0 4px 12px rgba(255,107,90,0.2))"/>
       </div>
     </div>
 
@@ -235,7 +235,7 @@
         if(res.reasoning){
           html+=`<div class="reasoning-section">${res.reasoning}</div>`;
         }
-        html+=`<div style="margin-top:16px;text-align:center"><button onclick="shareOnLinkedIn()" style="background:linear-gradient(135deg,#0a66c2,#005a9c);color:white;border:1px solid #0a66c2;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all 280ms;margin-top:8px">Share on LinkedIn</button></div>`;
+        html+=`<div style="margin-top:16px;text-align:center;display:flex;gap:10px;justify-content:center"><button onclick="shareOnLinkedIn()" style="background:linear-gradient(135deg,#0a66c2,#005a9c);color:white;border:1px solid #0a66c2;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all 280ms">Share on LinkedIn</button><button onclick="tryAnotherJob()" style="background:rgba(255,140,66,0.2);color:#ff8c42;border:1px solid #ff8c42;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all 280ms">Try Another</button></div>`;
 
         verdict.innerHTML=html;
         verdict.classList.remove('hidden');
@@ -244,6 +244,7 @@
       },2200);
     }
 
+    function tryAnotherJob(){input.value='';verdict.classList.add('hidden');input.focus();}
     button.addEventListener('click',run);
     input.addEventListener('keypress',e=>{if(e.key==='Enter'&&!button.disabled)run();});
   </script>
