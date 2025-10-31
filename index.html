@@ -13,14 +13,15 @@
     @media(max-width:900px){.container{grid-template-columns:1fr;gap:32px}}
     @media(max-width:500px){.input-group{flex-direction:column}button{width:100%}}
     .dog-section{display:flex;align-items:center;justify-content:center;position:relative}
-    .dog-container{width:clamp(200px,40vw,280px);height:clamp(200px,40vw,280px);position:relative}
+    .dog-container{width:clamp(200px,40vw,280px);height:clamp(200px,40vw,280px);position:relative;animation:panic-shake 0.5s ease-in-out infinite}
     .flames{position:absolute;width:100%;height:100%;bottom:0;left:0;opacity:0.7}
-    .flame{position:absolute;width:30px;height:50px;background:linear-gradient(180deg,var(--warm-red),var(--warm-orange),transparent);border-radius:50% 50% 0 0;animation:flicker 2s ease-in-out infinite;opacity:0.8}
+    .flame{position:absolute;width:30px;height:50px;background:linear-gradient(180deg,var(--warm-red),var(--warm-orange),transparent);border-radius:50% 50% 0 0;animation:flicker 0.8s ease-in-out infinite;opacity:0.8}
     .flame:nth-child(1){left:10%;bottom:10%;animation-delay:0s}
-    .flame:nth-child(2){left:35%;bottom:5%;animation-delay:0.3s}
-    .flame:nth-child(3){left:60%;bottom:15%;animation-delay:0.6s}
-    .flame:nth-child(4){left:80%;bottom:8%;animation-delay:0.2s}
-    @keyframes flicker{0%,100%{transform:scaleY(1) translateX(0);opacity:0.7}50%{transform:scaleY(1.2) translateX(2px);opacity:1}}
+    .flame:nth-child(2){left:35%;bottom:5%;animation-delay:0.2s}
+    .flame:nth-child(3){left:60%;bottom:15%;animation-delay:0.4s}
+    .flame:nth-child(4){left:80%;bottom:8%;animation-delay:0.1s}
+    @keyframes flicker{0%,100%{transform:scaleY(1) scaleX(1) translateX(0);opacity:0.8}25%{transform:scaleY(1.4) scaleX(0.9) translateX(-3px);opacity:1}50%{transform:scaleY(1.3) scaleX(1.1) translateX(3px);opacity:0.95}75%{transform:scaleY(1.2) scaleX(0.95) translateX(-2px);opacity:1}}
+    @keyframes panic-shake{0%,100%{transform:translateX(0) translateY(0) rotate(0deg)}10%{transform:translateX(-2px) translateY(-1px) rotate(-0.5deg)}20%{transform:translateX(2px) translateY(1px) rotate(0.5deg)}30%{transform:translateX(-2px) translateY(0px) rotate(-0.3deg)}40%{transform:translateX(1px) translateY(-1px) rotate(0.3deg)}50%{transform:translateX(-1px) translateY(1px) rotate(-0.4deg)}60%{transform:translateX(2px) translateY(-2px) rotate(0.4deg)}70%{transform:translateX(-2px) translateY(1px) rotate(-0.3deg)}80%{transform:translateX(1px) translateY(-1px) rotate(0.3deg)}90%{transform:translateX(-1px) translateY(0px) rotate(-0.5deg)}}
     svg{filter:drop-shadow(0 4px 12px rgba(255,107,90,0.2));position:relative;z-index:2}
     .form-section{background:linear-gradient(135deg,rgba(61,42,32,0.9),rgba(45,31,24,0.7));border:2px solid var(--warm-orange);border-radius:24px;padding:clamp(20px,4vw,40px);backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)}
     h1{margin:0 0 8px;font-size:clamp(28px,4vw,36px);font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--warm-orange),var(--warm-red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
