@@ -101,6 +101,9 @@
     function isSafeJob(t){return safeJobs.some(x=>(t||'').toLowerCase().includes(x));}
     function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
     function randDec(min,max){return(Math.random()*(max-min)+min).toFixed(1);}
+    function getSeenResponses(type){const key=type==='safe'?'seenSafeResponses':'seenDoomedResponses';const stored=localStorage.getItem(key);return stored?JSON.parse(stored):[];}
+    function markResponseAsSeen(type,index){const key=type==='safe'?'seenSafeResponses':'seenDoomedResponses';const seen=getSeenResponses(type);if(!seen.includes(index)){seen.push(index);localStorage.setItem(key,JSON.stringify(seen));}}
+    function resetSeenResponses(type){const key=type==='safe'?'seenSafeResponses':'seenDoomedResponses';localStorage.removeItem(key);}
 
     const easterEggs={
       'ai':()=>({title:'RECURSIVE ERROR',message:'Calculating... Stack overflow. You broke the matrix.',advice:'Try unplugging it and plugging it back in. Oh wait, that\'s you.',easter:true}),
@@ -179,7 +182,13 @@
       ];
 
       const responses=safe?safeResponses:doomedResponses;
-      const selected=responses[rand(0,responses.length-1)];
+      const responseType=safe?'safe':'doomed';
+      const seenIndices=getSeenResponses(responseType);
+      let availableIndices=responses.map((_,i)=>i).filter(i=>!seenIndices.includes(i));
+      if(availableIndices.length===0){resetSeenResponses(responseType);availableIndices=responses.map((_,i)=>i);}
+      const selectedIndex=availableIndices[rand(0,availableIndices.length-1)];
+      const selected=responses[selectedIndex];
+      markResponseAsSeen(responseType,selectedIndex);
       return{title:selected.title,message:selected.message,advice:selected.advice,reasoning:generateReasoning(job),safe};
     }
 
