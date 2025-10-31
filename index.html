@@ -9,10 +9,11 @@
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#1a1210 0%,#2d1f18 50%,#221813 100%);color:var(--ink);display:flex;align-items:center;justify-content:center;padding:20px;min-height:100vh}
-    .container{display:grid;grid-template-columns:1fr 1fr;gap:48px;width:min(1200px,95vw);align-items:center}
+    .container{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,48px);width:min(1200px,95vw);align-items:center}
     @media(max-width:900px){.container{grid-template-columns:1fr;gap:32px}}
+    @media(max-width:500px){.input-group{flex-direction:column}button{width:100%}}
     .dog-section{display:flex;align-items:center;justify-content:center;position:relative}
-    .dog-container{width:280px;height:280px;position:relative}
+    .dog-container{width:clamp(200px,40vw,280px);height:clamp(200px,40vw,280px);position:relative}
     .flames{position:absolute;width:100%;height:100%;bottom:0;left:0;opacity:0.7}
     .flame{position:absolute;width:30px;height:50px;background:linear-gradient(180deg,var(--warm-red),var(--warm-orange),transparent);border-radius:50% 50% 0 0;animation:flicker 2s ease-in-out infinite;opacity:0.8}
     .flame:nth-child(1){left:10%;bottom:10%;animation-delay:0s}
@@ -21,10 +22,10 @@
     .flame:nth-child(4){left:80%;bottom:8%;animation-delay:0.2s}
     @keyframes flicker{0%,100%{transform:scaleY(1) translateX(0);opacity:0.7}50%{transform:scaleY(1.2) translateX(2px);opacity:1}}
     svg{filter:drop-shadow(0 4px 12px rgba(255,107,90,0.2));position:relative;z-index:2}
-    .form-section{background:linear-gradient(135deg,rgba(61,42,32,0.9),rgba(45,31,24,0.7));border:2px solid var(--warm-orange);border-radius:24px;padding:40px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)}
+    .form-section{background:linear-gradient(135deg,rgba(61,42,32,0.9),rgba(45,31,24,0.7));border:2px solid var(--warm-orange);border-radius:24px;padding:clamp(20px,4vw,40px);backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)}
     h1{margin:0 0 8px;font-size:clamp(28px,4vw,36px);font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--warm-orange),var(--warm-red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    p.tagline{margin:0 0 24px;color:var(--muted);font-size:14px;font-weight:500;letter-spacing:0.5px}
-    .input-group{display:flex;gap:10px;margin:24px 0}
+    p.tagline{margin:0 0 clamp(16px,3vw,24px);color:var(--muted);font-size:clamp(12px,2vw,14px);font-weight:500;letter-spacing:0.5px}
+    .input-group{display:flex;gap:10px;margin:clamp(16px,3vw,24px) 0}
     input[type=text]{flex:1;padding:13px 16px;border-radius:12px;border:1.5px solid var(--warm-orange);background:rgba(61,42,32,0.6);color:var(--ink);font-size:14px;font-weight:500;outline:none;transition:all 280ms cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(4px)}
     input[type=text]:focus{border-color:var(--warm-red);background:rgba(61,42,32,0.9);box-shadow:0 0 0 4px rgba(255,107,90,0.15),inset 0 2px 8px rgba(0,0,0,0.2)}
     input[type=text]::placeholder{color:rgba(201,181,168,0.5)}
@@ -36,10 +37,10 @@
     button:disabled{opacity:0.6;cursor:not-allowed}
     .progress-bar{height:6px;background:rgba(255,140,66,0.12);border-radius:999px;overflow:hidden;border:1px solid rgba(255,140,66,0.2);margin:22px 0 18px;backdrop-filter:blur(4px)}
     .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--warm-orange),var(--warm-red));box-shadow:0 0 20px rgba(255,107,90,0.5);transition:width 2.2s cubic-bezier(0.25,0.46,0.45,0.94)}
-    .console-output{font-family:'Monaco','Courier New',monospace;background:rgba(26,18,16,0.8);border:1px solid rgba(255,140,66,0.15);border-radius:12px;padding:14px;color:#d4a98f;height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:11px;line-height:1.5;backdrop-filter:blur(8px)}
+    .console-output{font-family:'Monaco','Courier New',monospace;background:rgba(26,18,16,0.8);border:1px solid rgba(255,140,66,0.15);border-radius:12px;padding:clamp(10px,2vw,14px);color:#d4a98f;height:clamp(100px,15vh,120px);overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:clamp(10px,1.5vw,11px);line-height:1.5;backdrop-filter:blur(8px)}
     .console-output .log{animation:fadeIn 300ms ease-out}
     @keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
-    .verdict-box{margin-top:20px;padding:20px;border-radius:16px;border:1.5px solid rgba(255,140,66,0.3);background:linear-gradient(135deg,rgba(61,42,32,0.7),rgba(45,31,24,0.5));font-size:15px;line-height:1.65;animation:revealResult 500ms cubic-bezier(0.34,1.56,0.64,1)}
+    .verdict-box{margin-top:clamp(16px,3vw,20px);padding:clamp(16px,3vw,20px);border-radius:16px;border:1.5px solid rgba(255,140,66,0.3);background:linear-gradient(135deg,rgba(61,42,32,0.7),rgba(45,31,24,0.5));font-size:clamp(13px,2vw,15px);line-height:1.65;animation:revealResult 500ms cubic-bezier(0.34,1.56,0.64,1)}
     @keyframes revealResult{from{opacity:0;transform:translateY(10px);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
     .verdict-box.safe{border-color:rgba(255,165,0,0.6);background:linear-gradient(135deg,rgba(255,165,0,0.15),rgba(255,165,0,0.05))}
     .verdict-box.doomed{border-color:rgba(255,107,90,0.6);background:linear-gradient(135deg,rgba(255,107,90,0.15),rgba(255,107,90,0.05))}
