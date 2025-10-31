@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Will AI Take Over Your Job?</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root{--warm-dark:#1a1210;--warm-bg:#2d1f18;--warm-card:#3d2a20;--warm-orange:#ff8c42;--warm-orange-dark:#e67e3c;--warm-red:#ff6b5a;--warm-accent:#ffa500;--ink:#fff8f3;--muted:#c9b5a8}
     *{box-sizing:border-box;margin:0;padding:0}
@@ -104,6 +105,7 @@
     function getSeenResponses(type){const key=type==='safe'?'seenSafeResponses':'seenDoomedResponses';const stored=localStorage.getItem(key);return stored?JSON.parse(stored):[];}
     function markResponseAsSeen(type,index){const key=type==='safe'?'seenSafeResponses':'seenDoomedResponses';const seen=getSeenResponses(type);if(!seen.includes(index)){seen.push(index);localStorage.setItem(key,JSON.stringify(seen));}}
     function resetSeenResponses(type){const key=type==='safe'?'seenSafeResponses':'seenDoomedResponses';localStorage.removeItem(key);}
+    async function shareOnLinkedIn(jobTitle,verdict){const shareBtn=event.target;shareBtn.disabled=true;shareBtn.textContent='Capturing...';try{const verdictEl=document.getElementById('verdict');const canvas=await html2canvas(verdictEl,{backgroundColor:'rgba(45,31,24,0.9)',scale:2,logging:false});canvas.toBlob(async blob=>{const file=new File([blob],`job-verdict-${Date.now()}.png`,{type:'image/png'});const baseUrl='https://a692570.github.io/will-ai-replace-your-job/';const text=`Just found out my job as a "${jobTitle}" is: ${verdict}\n\nTested mine here: ${baseUrl}`;if(navigator.share){try{await navigator.share({title:'Job AI Verdict',text:text,files:[file]});}catch(e){fallbackShare(text);}}else{fallbackShare(text);}})}catch(e){console.error('Screenshot failed:',e);alert('Error capturing screenshot. Try sharing as text instead.');}finally{shareBtn.disabled=false;shareBtn.textContent='Share on LinkedIn';}}function fallbackShare(text){const linkedInUrl=`https://www.linkedin.com/feed/?text=${encodeURIComponent(text + '\n\n(Screenshot captured - download & upload to LinkedIn for more impact)')}`;window.open(linkedInUrl,'_blank','width=600,height=400');}
 
     const easterEggs={
       'ai':()=>({title:'RECURSIVE ERROR',message:'Calculating... Stack overflow. You broke the matrix.',advice:'Try unplugging it and plugging it back in. Oh wait, that\'s you.',easter:true}),
@@ -227,6 +229,7 @@
         if(res.reasoning){
           html+=`<div class="reasoning-section">${res.reasoning}</div>`;
         }
+        html+=`<div style="margin-top:16px;text-align:center"><button onclick="shareOnLinkedIn('${v.replace(/'/g,"\\'")}','${res.title}')" style="background:linear-gradient(135deg,#0a66c2,#005a9c);color:white;border:1px solid #0a66c2;padding:10px 20px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all 280ms;margin-top:8px">Share on LinkedIn</button></div>`;
 
         verdict.innerHTML=html;
         verdict.classList.remove('hidden');
