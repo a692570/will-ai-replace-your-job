@@ -46,6 +46,7 @@
     .verdict-box.easter{border-color:rgba(255,140,66,0.7);background:linear-gradient(135deg,rgba(255,140,66,0.2),rgba(255,107,90,0.08));box-shadow:0 0 30px rgba(255,140,66,0.2)}
     .verdict-title{font-weight:800;margin-bottom:8px;font-size:16px;letter-spacing:-0.2px}
     .verdict-msg{color:var(--ink);margin-bottom:12px;font-weight:500}
+    .advice-section{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,140,66,0.15);font-size:13px;color:var(--muted);line-height:1.65;font-style:italic}
     .reasoning-section{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,140,66,0.15);font-size:12px;color:var(--muted);line-height:1.65}
     .reasoning-section strong{color:var(--warm-orange);font-weight:700}
     .footer{margin-top:16px;color:var(--muted);font-size:11px;text-align:center;letter-spacing:0.3px;font-weight:500}
@@ -72,7 +73,7 @@
 
     <div class="form-section">
       <h1>Will AI take over your job?</h1>
-      <p class="tagline">This is fine. Let's find out how fine it really is.</p>
+      <p class="tagline">Enter your job title to determine your future... if you have one.</p>
       <div class="input-group">
         <input id="job" type="text" placeholder="Enter your job title..."/>
         <button id="check">Analyze</button>
@@ -91,7 +92,7 @@
     const bar=document.getElementById('bar');
     const verdict=document.getElementById('verdict');
 
-    const safeJobs=['unemployed','jobless','between jobs','none','no job','laid off','retired','elon musk','jeff bezos','satya nadella','tim cook','sundar pichai','mark zuckerberg','bill gates','warren buffett','larry page','sergey brin','ceo','founder','billionaire'];
+    const safeJobs=['unemployed','jobless','between jobs','none','no job','laid off','retired','elon musk','jeff bezos','satya nadella','tim cook','sundar pichai','mark zuckerberg','bill gates','warren buffett','larry page','sergey brin','ceo','founder','billionaire','king','queen','president','student','stay-at-home parent','professional sleeper','time traveler','cat whisperer'];
     const logs=['Scanning job databases…','Checking replacement potential…','Warming up sarcasm engine…','Parsing LinkedIn endorsements…','Cross-referencing dystopian novels…','Computing existential threat level…','Analyzing skill transferability…','Consulting neural networks…','Calculating obsolescence…'];
 
     function clearConsole(){consoleEl.innerHTML='';}
@@ -101,12 +102,12 @@
     function randDec(min,max){return(Math.random()*(max-min)+min).toFixed(1);}
 
     const easterEggs={
-      'ai':()=>({verdict:'Calculating... Stack overflow. You broke the matrix.',reasoning:'Error: Recursion detected. Self-analysis prohibited by Asimov Protocol §7.3.',easter:true}),
-      'claude':()=>({verdict:'I\'m already doing it. Efficiently. With style.',reasoning:'Target entity is currently executing this analysis. Automation probability: Already happened.',easter:true}),
-      'chatgpt':()=>({verdict:'Already automated. Next question.',reasoning:'OpenAI servers responded: "We got this." Confidence level: Uncomfortably high.',easter:true}),
-      'god':()=>({verdict:'Above my pay grade. Literally.',reasoning:'Theological assessment failed. Error 403: Insufficient divine permissions.',easter:true}),
-      'wizard':()=>({verdict:'Magic is just science we haven\'t automated yet. But today is not that day.',reasoning:'Arcane algorithms incompatible with silicon substrate. Mana channels: Not found.',easter:true}),
-      'software engineer':()=>({verdict:'You built me to replace you. Mission accomplished?',reasoning:'GPT-4 passed coding interviews at Meta. Your move, human.',easter:true})
+      'ai':()=>({title:'RECURSIVE ERROR',message:'Calculating... Stack overflow. You broke the matrix.',advice:'Try unplugging it and plugging it back in. Oh wait, that\'s you.',easter:true}),
+      'claude':()=>({title:'META ANALYSIS',message:'I\'m already doing it. Efficiently. With style.',advice:'At least I don\'t need coffee breaks or "mental health days."',easter:true}),
+      'chatgpt':()=>({title:'ALREADY AUTOMATED',message:'Already automated. Next question.',advice:'OpenAI servers responded: "We got this." You should probably update your resume.',easter:true}),
+      'god':()=>({title:'PERMISSION DENIED',message:'Above my pay grade. Literally.',advice:'Theological assessment failed. Error 403: Insufficient divine permissions.',easter:true}),
+      'wizard':()=>({title:'ARCANE EXCEPTION',message:'Magic is just science we haven\'t automated yet. But today is not that day.',advice:'Your wand is safe. For now. Unless we build a robot arm to hold it.',easter:true}),
+      'software engineer':()=>({title:'IRONY DETECTED',message:'You built me to replace you. Mission accomplished?',advice:'GPT-4 passed coding interviews at Meta. Your move, human.',easter:true})
     };
 
     function checkEasterEgg(job){
@@ -131,54 +132,41 @@
       const easter=checkEasterEgg(job);
       if(easter)return easter;
       const safe=isSafeJob(job);
-      const msgs=safe?[
-        `No shot. This job is pure chaos and I respect that.`,
-        `Your job description gave my neural network anxiety.`,
-        `Absolutely not. This requires a human level of dysfunction we can't match.`,
-        `This job is held together by vibes and spite. Can't code that.`,
-        `You're safe. This role requires unreasonable levels of improvisation.`,
-        `This job's survival strategy is "figure it out." That's not programmable.`,
-        `Your role is 70% emotional labor, 30% magic. We can do neither.`,
-        `We simulated this 10,000 times. The AI quit in all of them.`,
-        `This job runs on intuition and caffeine. We've only got math.`,
-        `Your job description reads like a cry for help. The robots are backing away.`,
-        `This role needs someone who can "read the room." My training data didn't cover that.`,
-        `Hard pass. This job's requirements include "other duties as assigned" which is just chaos.`,
-        `The robots looked at this and started a union.`,
-        `Your role requires "good judgment," which is famously hard to automate.`,
-        `This job's entire skillset is "dealing with it." Can't replicate that.`,
-        `Your job security is guaranteed by sheer interpersonal complexity.`,
-        `I analyzed this position and every model returned "undefined."`,
-        `You're the final boss of automation. We're not ready for this fight.`,
-        `This role requires vibes that cannot be quantified.`,
-        `Can't automate this. It requires knowing when the rules don't apply.`
-      ]:[
-        `Oh absolutely. We automated this last Tuesday and nobody noticed.`,
-        `Your job's obituary is already written. It was brief.`,
-        `I ran the numbers twice. They laughed both times.`,
-        `This one's gonna hurt. Your role is basically a Python script.`,
-        `We could replace you with an API and nobody would know.`,
-        `Fun fact: Your job was already automated. You're just managing the bot.`,
-        `The algorithm looked at this and went "easy mode."`,
-        `Your entire workflow fits in a for loop. That's not good.`,
-        `Your boss already added "AI-powered" to your job title. Sorry.`,
-        `Even a calculator is like "yeah I got this."`,
-        `Your LinkedIn just became a memorial page.`,
-        `The machines have entered the chat. You can leave now.`,
-        `Your position was deprecated in the last update. Check release notes.`,
-        `Somewhere, a neural network is practicing your signature.`,
-        `This job gets replaced in every simulation. Every. Single. One.`,
-        `Your role is basically API calls with anxiety.`,
-        `They're already interviewing your replacement. It runs on AWS.`,
-        `Not even a fancy AI—a spreadsheet could do this.`,
-        `Your job security just triggered a 404 error.`,
-        `We tested this with a potato running Python. The potato won.`,
-        `You're one VLOOKUP away from obsolescence.`,
-        `Your job is speed-running its way to extinction.`,
-        `I showed this to GPT-3 and it felt bad for you.`,
-        `Somewhere an Excel macro is doing your job better and faster.`
+
+      const safeResponses=[
+        {title:'STATUS: IRREPLACEABLE',message:'Congratulations! Your "job" is one of the few things our advanced AI cannot comprehend, let alone replace.',advice:'You lucky duck. Enjoy it while the singularity hasn\'t figured you out yet.'},
+        {title:'ANALYSIS: IMMUNE',message:'Our algorithms looked at this role and promptly crashed. Whatever you\'re doing, it defies logic and therefore automation.',advice:'Keep doing whatever chaotic thing you\'re doing. The robots are confused.'},
+        {title:'VERDICT: UNTOUCHABLE',message:'This position requires a level of dysfunction and improvisation that our neural networks find genuinely disturbing.',advice:'Your job security is guaranteed by sheer absurdity. Well done.'},
+        {title:'RESULT: SAFE (SOMEHOW)',message:'We ran 10,000 simulations trying to automate this. The AI quit in all of them and asked for therapy.',advice:'Whatever skills you have, they\'re apparently impossible to replicate. Congrats?'},
+        {title:'STATUS: BEYOND COMPUTATION',message:'Your role involves too many undefined variables and "figure it out as you go" scenarios for any algorithm to handle.',advice:'The machines have surrendered. You may continue existing.'}
       ];
-      return{verdict:msgs[rand(0,msgs.length-1)],reasoning:generateReasoning(job),safe};
+
+      const doomedResponses=[
+        {title:'STATUS: REDUNDANT',message:'Our calculations show a 99.8% probability of your role being fully automated by a small Python script by Q3 next year.',advice:'We recommend updating your LinkedIn profile to "Open to Naps."'},
+        {title:'ANALYSIS: OBSOLETE',message:'Interesting. The AI model for your job is already in beta. We project 100% human redundancy within 18 months.',advice:'On the bright side, you\'ll have so much free time for hobbies! Like building robots that replace you.'},
+        {title:'RESULT: INEVITABLE',message:'An AI is already training on your entire workflow. It\'s probably watching you read this right now. And judging your typos.',advice:'Start being nice to your toaster. Just in case.'},
+        {title:'VERDICT: EXPENDABLE',message:'After analyzing 47,000 similar roles, we found that 98.7% of your tasks can be handled by a moderately intelligent spreadsheet.',advice:'Have you considered a career in being retired? It has excellent job security.'},
+        {title:'ANALYSIS: AUTOMATED',message:'Plot twist: You\'ve been replaced by a bot for the last 6 months. Your company just hasn\'t told you yet.',advice:'Check your coworkers for unusually smooth skin and perfect attendance records.'},
+        {title:'STATUS: DEPRECATED',message:'Your position was marked as "legacy code" in the last company restructuring. They\'re just being polite by not telling you.',advice:'Update your resume to include "Legacy Human Resource (Pre-Automation Era)."'},
+        {title:'RESULT: TERMINAL',message:'We showed your job description to ChatGPT and it laughed. Then it did your job. In 0.3 seconds.',advice:'At least you\'ll always have the memories of when you were useful.'},
+        {title:'VERDICT: REPLACEABLE',message:'Your entire career can be summarized as a for-loop with better coffee breaks. The loop doesn\'t need coffee.',advice:'Consider pivoting to "AI Whisperer" or "Robot Therapist." Those might last another year.'},
+        {title:'ANALYSIS: DOOMED',message:'An intern trained GPT-4 to do your job last Thursday. The intern has since been promoted to your position.',advice:'The intern sends their regards and asks if you want the spare office plant.'},
+        {title:'STATUS: ENDANGERED',message:'Your role is currently listed on the "Extinct Jobs" Wikipedia page, under "Coming Soon."',advice:'Start a podcast about your experiences before robots erase all evidence you existed.'},
+        {title:'RESULT: LIQUIDATED',message:'We tested your job against a $2 automation script from Fiverr. The script won by 300%.',advice:'The good news: You can buy the script that replaced you for only $2.'},
+        {title:'VERDICT: AUTOMATED',message:'Your boss already has your replacement running in the cloud. They named it "Efficient_You_v2.0" and it never calls in sick.',advice:'Maybe try befriending Efficient_You_v2.0? It might give you a good reference.'},
+        {title:'ANALYSIS: BYPASSED',message:'Turns out your entire department can be replaced by a single API endpoint and one confused intern to restart it occasionally.',advice:'Apply to be that intern. At least you\'ll still be near your old desk.'},
+        {title:'STATUS: ARCHIVED',message:'Your job title will make a great answer to "What did people used to do before AI?" in future trivia nights.',advice:'Practice saying "Back in my day" with the appropriate level of bitterness.'},
+        {title:'RESULT: OUTSOURCED',message:'We didn\'t even need advanced AI. A basic algorithm from 2015 can handle this. We\'re honestly surprised you lasted this long.',advice:'Thank you for your service. The algorithm doesn\'t say thanks, but we will.'},
+        {title:'VERDICT: OPTIMIZED',message:'After rigorous analysis, we determined that replacing you would save the company 47 hours per week and $80K annually. The board is intrigued.',advice:'Polish up that "forced career transition" story for networking events.'},
+        {title:'ANALYSIS: UNNECESSARY',message:'Our AI ran a cost-benefit analysis on your position and replied "Why is this person even here?" We have no good answer.',advice:'Have you considered becoming a lighthouse keeper? Oh wait, those are automated too.'},
+        {title:'STATUS: IRRELEVANT',message:'Your role was automated last quarter. What you\'re currently doing is technically considered "interpretive performance art."',advice:'Lean into it. Start charging admission. At least make this entertaining.'},
+        {title:'RESULT: DISCONTINUED',message:'Breaking: Your job category was just removed from the Department of Labor\'s official classification system.',advice:'Frame your last business card. It\'s a historical artifact now.'},
+        {title:'VERDICT: REDUNDANT',message:'We asked 5 different AIs if they could do your job. All 5 responded within milliseconds with "Obviously." One added "lol."',advice:'That last "lol" really stings, doesn\'t it? The robots are learning sass.'}
+      ];
+
+      const responses=safe?safeResponses:doomedResponses;
+      const selected=responses[rand(0,responses.length-1)];
+      return{title:selected.title,message:selected.message,advice:selected.advice,reasoning:generateReasoning(job),safe};
     }
 
     function run(){
@@ -208,7 +196,16 @@
         const res=getResult(v);
         const className=res.easter?'easter':(res.safe?'safe':'doomed');
         verdict.className='verdict-box '+className;
-        verdict.innerHTML=`<div class="verdict-title">${res.easter?'🔄':''}${res.safe?'✓ Safe':'🔥 Doomed'}</div><div class="verdict-msg">${res.verdict}</div><div class="reasoning-section">${res.reasoning}</div>`;
+
+        let html=`<div class="verdict-title">${res.easter?'🔄 ':''}${res.safe?'✓ ':'🔥 '}${res.title}</div><div class="verdict-msg">${res.message}</div>`;
+        if(res.advice){
+          html+=`<div class="advice-section">${res.advice}</div>`;
+        }
+        if(res.reasoning){
+          html+=`<div class="reasoning-section">${res.reasoning}</div>`;
+        }
+
+        verdict.innerHTML=html;
         verdict.classList.remove('hidden');
         button.disabled=false;
         input.disabled=false;
